@@ -39,16 +39,25 @@ for i in allelements:
 
 b = webdriver.Chrome()
 url0 = "http://www.xunyee.cn/rank-person-index-0-page-"
+rlt = []
 for i in range(1,21):
   urli = "%s%d.html"%(url0,i)
   print(urli)
   b.get(urli)
   dom = b.find_elements_by_css_selector(".rank_left_name")
-  printdom(dom)
-  
+  for j in dom:
+    rlt.append(j.text)
 
-  
-b.get("http://www.xunyee.cn/rank-person-index-0-page-1.html")
+for i in rlt[0:10]:
+  print("###############\n%s\n###############"%i)
+  b.get("%s%s"%("http://baike.baidu.com/item/",i))
+  lemma = b.find_elements_by_css_selector("div.lemma-summary")
+  basic = b.find_elements_by_css_selector("div.basic-info.cmn-clearfix")
+  printdom(lemma)
+  print("###############")
+  printdom(basic)
+  print("###############")
+
 dom = b.find_elements_by_css_selector(".rank_left_name")
 for i in dom:
     print(i.text)
